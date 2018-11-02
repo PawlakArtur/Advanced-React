@@ -12,7 +12,7 @@ function createClient({ headers }) {
         },
         headers,
       });
-    },
+    }, 
   });
 }
 
