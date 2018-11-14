@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
 const { randomBytes } = require('crypto');
 const { promisify } =  require('util');
+const { transport, makeANiceEmail } = require('../mail');
 
 const mutations = {
 	async createItem(parent, args, ctx, info) { 
@@ -92,8 +93,18 @@ const mutations = {
 			where: { email: args.email },
 			data: { resetToken, resetTokenExpiry }
 		});
-		return { message: 'Thanks'};
 		// Email them that reset token
+		const mailRes = await transport.sendMail({
+			from: 'pawlak.artur90@gmail.com',
+			to: user.email,
+			subject: 'Your Password Reset',
+			html: makeANiceEmail(`Your Password Reset Token is here!
+			\n\n
+			<a href="${process.env.FRONTEND_URL}/reset?resetToken=${resetToken}">Click here to reset password</a>`)
+		})
+		
+		// Return the message
+		return { message: 'Thanks'};
 	},
 	async resetPassword(parent, args, ctx, info) {
 		// Check if password match
