@@ -92,7 +92,6 @@ const mutations = {
 			where: { email: args.email },
 			data: { resetToken, resetTokenExpiry }
 		});
-		console.log(res);
 		return { message: 'Thanks'};
 		// Email them that reset token
 	},
@@ -115,7 +114,7 @@ const mutations = {
 		// Hash their new password
 		const password = await bcrypt.hash(args.password, 10);
 		// Save the new password to the user and remove old resetToken fields
-		const updatedUser = await ctx.db.mutation.updatedUser({
+		const updatedUser = await ctx.db.mutation.updateUser({
 			where: { email: user.email },
 			data: {
 				password,
