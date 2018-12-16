@@ -42,7 +42,7 @@ describe('<SingleItem/>', () => {
             </MockedProvider>
         );
         await wait();
-        wrapper.update();s
+        wrapper.update();
         const item = wrapper.find('[data-test="graphql-error"]');
         expect(item.text()).toContain('Items Not Found!');
         expect(toJSON(item)).toMatchSnapshot();
