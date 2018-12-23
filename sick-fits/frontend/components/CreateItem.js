@@ -30,7 +30,7 @@ class CreateItem extends Component {
 	state = {
 		title: '',
 		description: '',
-		Image: '',
+		image: '',
 		largeImage: '',
 		price: 0,
 	}
